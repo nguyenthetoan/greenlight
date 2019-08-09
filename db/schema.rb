@@ -10,38 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190522195242) do
+ActiveRecord::Schema.define(version: 2019_07_26_153012) do
 
   create_table "features", force: :cascade do |t|
-    t.integer  "setting_id"
-    t.string   "name",                       null: false
-    t.string   "value"
-    t.boolean  "enabled",    default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer "setting_id"
+    t.string "name", null: false
+    t.string "value"
+    t.boolean "enabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_features_on_name"
     t.index ["setting_id"], name: "index_features_on_setting_id"
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.string   "email",        null: false
-    t.string   "provider",     null: false
-    t.string   "invite_token"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string "email", null: false
+    t.string "provider", null: false
+    t.string "invite_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["invite_token"], name: "index_invitations_on_invite_token"
     t.index ["provider"], name: "index_invitations_on_provider"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.string   "resource_type"
-    t.integer  "resource_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.string "name"
+    t.integer "priority", default: 9999
+    t.boolean "can_create_rooms", default: false
+    t.boolean "send_promoted_email", default: false
+    t.boolean "send_demoted_email", default: false
+    t.boolean "can_edit_site_settings", default: false
+    t.boolean "can_edit_roles", default: false
+    t.boolean "can_manage_users", default: false
+    t.string "colour"
+    t.string "provider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "provider"], name: "index_roles_on_name_and_provider", unique: true
     t.index ["name"], name: "index_roles_on_name"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -65,7 +71,7 @@ ActiveRecord::Schema.define(version: 20190522195242) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string   "provider",   null: false
+    t.string "provider", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider"], name: "index_settings_on_provider"
@@ -88,7 +94,7 @@ ActiveRecord::Schema.define(version: 20190522195242) do
     t.string   "language",          default: "default"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.string   "activation_digest"
+    t.string "activation_digest"
     t.datetime "activated_at"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email"
