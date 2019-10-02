@@ -16,6 +16,26 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  if ENV['REDIS_URL'].present?
+    # Set up Redis cache store
+    config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'],
+
+      connect_timeout:    30,  # Defaults to 20 seconds
+      read_timeout:       0.2, # Defaults to 1 second
+      write_timeout:      0.2, # Defaults to 1 second
+      reconnect_attempts: 1,   # Defaults to 0
+
+      error_handler: lambda { |method:, returning:, exception:|
+        config.logger.warn "Support: Redis cache action #{method} failed and returned '#{returning}': #{exception}"
+      } }
+  else
+    config.cache_store = :memory_store
+  end
+
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{1.years.to_i}"
+  }
+
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
@@ -29,7 +49,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = false
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 

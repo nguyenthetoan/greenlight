@@ -42,6 +42,10 @@ de_DE:
         info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
         placeholder: Bild URL...
         title: Markenlogo
+      cache:
+        info: "Löscht den Provider-Zwischenspeicher, wodurch bei einer neuen Anfrage Informationen neu eingegeben werden müssen "
+        title: Provider-Zwischenspeicher löschen
+        button: Zwischenspeicher löschen
       color:
         info: Das Ändern der normalen Farbe wird sich auf Heller und Dunkler auswirken. Heller und Dunkler können danach individuell angepasst werden
         title: Primäre Farbe
@@ -75,6 +79,7 @@ de_DE:
       invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
+      reset_password: "Dem Teilnehmer wurde eine Email zum Passwortreset geschickt (Bitte weisen Sie den Teilnehmer darauf hin, im Spamordner danach zu suchen, falls er die Email nicht erhalten hat)"
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
@@ -209,8 +214,7 @@ de_DE:
       signout: Abmelden
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
-  invalid_user: "Login fehlgeschlagen, weil das Benutzerkonto nicht gefunden wurde. Sind Sie sicher, dass die angegebene Emailadresse richtig ist?"
-  invalid_credentials: "Login wegen ungültiger Anmeldedaten fehlgeschlagen. Sind Sie sicher, alles richtig eingegeben zu haben?"
+  invalid_credentials: "Die eingegebene Email und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
   invalid_login_method: Login fehlgeschlagen aufgrund einer Zugangsdiskrepanz. Sie müssen sich mit Omniauth anmelden.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
@@ -262,11 +266,11 @@ de_DE:
         username: "Ihr Nutzername ist %{email}."
       password_reset:
         title: 'Passwort zurücksetzen'
-        welcome: "Es scheint als ob Sie ihr Passwort für %{bigbluebutton} vergessen haben"
-        message: 'Falls dies zutrifft, klicken Sie bitte auf den folgenden Link, um Ihr Passwort zurückzusetzen:'
+        welcome: "Es wurde ein Passwortreset für Emailadresse <b>%{email}</b> ausgelöst."
+        message: 'Falls Sie Ihr Passwort zurücksetzen wollen, klicken Sie bitte auf den folgenden Link:'
         reset_link: Passwort zurücksetzen
         expire: Dieser Link wird in zwei Stunden ungültig.
-        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
+        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Anfrage zum Passwortreset abgeschickt haben."
       promoted:
         admins_link: Organisationsseite besuchen
         info: "Sie sind jetzt ein %{role} auf %{url}."
@@ -280,6 +284,8 @@ de_DE:
         verify_text: 'Um Ihren Account zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Account verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
+  maintenance:
+    window_alert: "Wartungszeitfenster für %{date} geplant"
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   modal:
     create_role:
@@ -309,7 +315,7 @@ de_DE:
       warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
       recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
-      email_placeholder: Nutzeremail eingeben
+      email_placeholder: Emailadressen der Nutzer (durch Kommas getrennt)
       footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
       send: Einladung schicken
       title: Nutzer einladen
@@ -332,6 +338,7 @@ de_DE:
   name_update_success: Raumname erfolgreich geändert!
   no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
   omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  omniauth_specific_error: "%{error} ist während der Authentifizierung mit Omniauth aufgetreten. Bitte versuchen Sie es nochmal oder kontaktieren Sie einen Administrator!"
   pagy:
     nav:
       prev: "&lsaquo; Vorheriges"
@@ -404,6 +411,7 @@ de_DE:
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
     enter_the_access_code: Eingabe des Raumzugangscodes
+    invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invited: Sie wurden zur Teilnahme eingeladen
     invite_participants: Teilnehmer einladen
     join: Teilnehmen

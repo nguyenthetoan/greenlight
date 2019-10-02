@@ -116,6 +116,17 @@ module Greenlight
     # Enum containing the different possible registration methods
     config.registration_methods = { open: "0", invite: "1", approval: "2" }
 
+    config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
+
+    # Will always be true unless explicitly set to false
+    config.enable_cache = ENV["ENABLE_CACHED_PROVIDER"] != "false"
+
+    # MAINTENANCE
+    config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
+    config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
+
+    config.report_issue_url = ENV["REPORT_ISSUE_URL"]
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
@@ -131,12 +142,24 @@ module Greenlight
     config.primary_color_darken_default = "#316cbe"
 
     # Default registration method if the user does not specify one
-    config.registration_method_default = config.registration_methods[:open]
+    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
+      config.registration_methods[:invite]
+    elsif ENV["DEFAULT_REGISTRATION"] == "approval"
+      config.registration_methods[:approval]
+    else
+      config.registration_methods[:open]
+    end
 
     # Default limit on number of rooms users can create
     config.number_of_rooms_default = 15
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    config.action_cable.log_tags = [
+      ->(request) { request.session['user_id'] || "no-account" },
+      :action_cable,
+      ->(request) { request.uuid }
+    ]
   end
 end
